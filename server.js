@@ -43,13 +43,16 @@ app.use("/api/resorder", restaurantOrderRouter);
 // Use /api/booking for booking routes
 
 
-// Global error handling middleware
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
 });
 
-
+app.use((req, res, next) => {
+    console.log(req.ip);
+    next();
+  });
 
 app.get("/", (req, res) => {
     res.send("Server is running!");
@@ -57,5 +60,5 @@ app.get("/", (req, res) => {
   
 // Start the server
 app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+    console.log(`Server started on :${port}`);
 });
